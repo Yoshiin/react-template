@@ -1,7 +1,9 @@
 {
   "fr": {
-    "welcome": {
-      "title": "React Template"
+    "links": {
+      "contact": "tchap@beta.gouv.fr",
+      "prise-en-main": "/prise-en-main",
+      "faq": "/faq"
     }
   }
 }

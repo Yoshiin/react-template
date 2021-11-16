@@ -1,9 +1,8 @@
 import ReactDOM from 'react-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import '../res/css/index.scss';
+import 'styles/index.scss';
 
 import App from "./App"
-
 
 const theme = createTheme({
 	palette: {

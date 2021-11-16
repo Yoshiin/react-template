@@ -68,7 +68,7 @@ module.exports = {
       prefix: 'assets/images/',
       favicons: {
         appName: 'react-template',
-        appDescription: 'React Template with Webpack',
+        appDescription: 'react-template',
         developerName: "Yoshin <l.mora@outlook.fr>",
         developerURL: null,
         lang: "fr-FR",

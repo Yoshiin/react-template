@@ -1,4 +1,4 @@
-import { Component } from "react";
+import {Component} from "react";
 import "styles/pages/home/Home.scss";
 
 class Home extends Component {
@@ -6,7 +6,7 @@ class Home extends Component {
 	render() {
 		return (
 			<div>
-				React Template with Webpack
+				Hello World
 			</div>
 		);
 	}
