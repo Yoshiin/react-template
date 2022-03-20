@@ -45,6 +45,16 @@ module.exports = class Vnpn {
 		if (/[~'!()*]/.test(name.split('/').slice(-1)[0])) {
 			warnings.push('name can no longer contain special characters ("~\'!()*")');
 		}
+		if (encodeURIComponent(name) !== name) {
+			let nameMatch = name.match(scopedPackagePattern);
+			if (nameMatch) {
+				let user = nameMatch[1];
+				let pkg = nameMatch[2];
+				if (encodeURIComponent(user) !== user || encodeURIComponent(pkg) !== pkg) {
+					errors.push('name can only contain URL-friendly characters');
+				}
+			}
+		}
 
 		let result = {
 			valid: errors.length === 0 && warnings.length === 0,

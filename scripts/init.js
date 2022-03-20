@@ -15,52 +15,69 @@ const inquirer = readline.createInterface({
     output: process.stdout
 });
 
-fs.readFile("./package.json", "utf8", (err, data) => {
+fs.readFile("package.json", "utf8", (err, data) => {
     if (err) {
         console.error('Failed to read "package.json"', err);
         inquirer.close();
         return;
     }
-    let pack = JSON.parse(data);
-    if (pack.name !== "react-template") {
+    let json = JSON.parse(data);
+    if (json.name !== "react-template") {
         inquirer.question("It looks like this project have been already setup.\nAre you sure that you want to re-run setup ?\nYes (y) / No (n) > ", r => {
-            if (r !== "y") {
+            if (r !== "y" && r !== "yes" && r !== "Yes") {
                 inquirer.close();
             } else {
-                inquirerQuestions(inquirer, pack);
+                inquirerQuestions(json);
             }
         });
     } else {
-        inquirerQuestions(inquirer, pack);
+        inquirerQuestions(json);
     }
 });
 
-function inquirerQuestions(inq, jso) {
-    inq.question("\nProject name :\n> ", name => {
-        let v = Vnpn.validate(name);
-        if (!v.valid && v.errors) {
+function inquirerQuestions(json) {
+    inquirer.question("\nProject name :\n> ", name => {
+        let validate = Vnpn.validate(name);
+        if (!validate.valid && validate.errors) {
             console.error(`\n⚠ There are some erros on your package name : "${name}"`);
-            v.errors.forEach(e => {
-                inq.close();
+            validate.errors.forEach(e => {
                 console.error(`    - ${e}`);
             });
             console.error('\n');
+            inquirer.close();
             return;
         }
-        inq.question("Project description :\n> ", desc => {
-            inq.question("Project author :\n> ", auth => {
-                jso.name = name;
-                jso.author = auth;
-                jso.description = desc;
-                jso.version = "0.0.1";
-                let json = JSON.stringify(jso, null, 2);
-                fs.writeFileSync("package.json", json);
-                console.log('\nRunning "yarn" command...');
-                exec('yarn', (err, stdout, stderr) => {
-                    console.log('\n' + stdout);
-                    inq.close();
-                });
+        inquirer.question("Project description :\n> ", desc => {
+            inquirer.question("Project author :\n> ", auth => {
+                editFiles(json, {name, desc, auth});
+                inquirer.close();
             });
+        });
+    });
+}
+
+function editFiles(json, data) {
+    json.name = data.name;
+    json.description = data.desc;
+    json.author = data.auth;
+    json.version = "0.0.1";
+
+    fs.readFile("config/webpack.common.js", "utf8", (err, wcj) => {
+        if (err) {
+            console.error('Failed to read "config/webpack.common.js"', err);
+            return;
+        }
+        wcj = wcj.replaceAll("react-template", data.name);
+        wcj = wcj.replaceAll("Yoshin <l.mora@outlook.fr>", data.auth);
+        wcj = wcj.replaceAll("React Template", `${data.name} - ${data.desc}`);
+        fs.writeFileSync("config/webpack.common.js", wcj);
+
+        let pkg = JSON.stringify(json, null, 2);
+        fs.writeFileSync("package.json", pkg);
+
+        console.log('\nRunning "yarn" command...');
+        exec('yarn', (err, stdout, stderr) => {
+            console.log('\n' + stdout);
         });
     });
 }
