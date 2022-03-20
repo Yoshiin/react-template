@@ -4,7 +4,9 @@
   "author": "Yoshin <l.mora@outlook.fr>",
   "main": "index.js",
   "description": "React Template",
+  "license": "BSD-3-Clause",
   "scripts": {
+    "setup": "node scripts/init.js",
     "start": "NODE_ENV=development webpack serve --config config/webpack.dev.js --progress",
     "build": "NODE_ENV=production webpack --config config/webpack.prod.js"
   },
