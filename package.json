@@ -1,6 +1,6 @@
 {
   "name": "react-template",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "author": "Yoshin <l.mora@outlook.fr>",
   "main": "index.js",
   "description": "React Template",
@@ -9,6 +9,10 @@
     "setup": "node scripts/init.js",
     "start": "NODE_ENV=development webpack serve --config config/webpack.dev.js --progress",
     "build": "NODE_ENV=production webpack --config config/webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yoshiin/react-template.git"
   },
   "dependencies": {
     "@emotion/react": "^11.6.0",

@@ -2,7 +2,7 @@
 
 const NODE_MAJOR_VERSION = process.versions.node.split('.')[0];
 if (NODE_MAJOR_VERSION < 17) {
-    console.error("Node v17.x.x is required to run setup.");
+    console.error("Node v17.x.x is required to run setup script.");
     return;
 }
 
@@ -14,6 +14,8 @@ const inquirer = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
+
+const validUrlPatern = new RegExp(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm);
 
 fs.readFile("package.json", "utf8", (err, data) => {
     if (err) {
@@ -47,10 +49,12 @@ function inquirerQuestions(json) {
             inquirer.close();
             return;
         }
-        inquirer.question("Project description :\n> ", desc => {
-            inquirer.question("Project author :\n> ", auth => {
-                editFiles(json, {name, desc, auth});
-                inquirer.close();
+        inquirer.question("Project description (leave empty to remove this field) :\n> ", desc => {
+            inquirer.question("Project author (leave empty to remove this field) :\n> ", auth => {
+                inquirer.question("Git repo url (leave empty to remove this field) :\n> ", git => {
+                    editFiles(json, {name, desc, auth, git});
+                    inquirer.close();
+                });
             });
         });
     });
@@ -58,9 +62,10 @@ function inquirerQuestions(json) {
 
 function editFiles(json, data) {
     json.name = data.name;
-    json.description = data.desc;
-    json.author = data.auth;
     json.version = "0.0.1";
+    data.auth && data.auth !== "" ? json.author = data.auth : delete json.author;
+    data.desc && data.desc !== "" ? json.description = data.desc : delete json.description;
+    data.git && data.git !== "" && data.git.match(validUrlPatern) ? json.repository.url = data.git : delete json.repository;
 
     fs.readFile("config/webpack.common.js", "utf8", (err, wcj) => {
         if (err) {
