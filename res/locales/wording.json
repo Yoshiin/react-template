@@ -1,0 +1,14 @@
+{
+  "en": {
+    "home": {
+      "title": "Hello ",
+      "who": "World !"
+    }
+  },
+  "fr": {
+    "home": {
+      "title": "Bonjour ",
+      "who": "Monde !"
+    }
+  }
+}
