@@ -8,7 +8,8 @@ React Template
 
 ### Requirements
 
-`react-template` requires Node.js `>=17.0.0`
+`react-template` requires Node.js `>=15.0.0`.\
+If you want to use the init script `yarn setup`, you'll need Node.js `>=17.0.0`.
 
 ### Pre-installed packages
 
