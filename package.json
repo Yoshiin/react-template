@@ -10,6 +10,12 @@
     "start": "NODE_ENV=development webpack serve --config config/webpack.dev.js --progress",
     "build": "NODE_ENV=production webpack --config config/webpack.prod.js"
   },
+  "engines" : {
+    "npm" : "please-use-yar",
+    "node" : ">=17.5.0",
+    "yarn": ">=1.22.00"
+  },
+  "packageManager": "yarn",
   "repository": {
     "type": "git",
     "url": "https://github.com/Yoshiin/react-template.git"
