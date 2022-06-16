@@ -1,6 +1,6 @@
 {
   "name": "react-template",
-  "version": "2.3.0",
+  "version": "2.3.2",
   "author": "Yoshin <l.mora@outlook.fr>",
   "main": "index.js",
   "description": "React Template",
@@ -10,9 +10,9 @@
     "start": "NODE_ENV=development webpack serve --config config/webpack.dev.js --progress",
     "build": "NODE_ENV=production webpack --config config/webpack.prod.js"
   },
-  "engines" : {
-    "npm" : "please-use-yar",
-    "node" : ">=17.5.0",
+  "engines": {
+    "npm": "please-use-yar",
+    "node": ">=17.5.0",
     "yarn": ">=1.22.00"
   },
   "packageManager": "yarn",
