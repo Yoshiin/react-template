@@ -11,11 +11,11 @@
     "build": "NODE_ENV=production webpack --config config/webpack.prod.js"
   },
   "engines": {
-    "npm": "please-use-yar",
+    "npm": "please-use-yarn",
     "node": ">=17.5.0",
     "yarn": ">=1.22.00"
   },
-  "packageManager": "yarn",
+  "packageManager": "^yarn@1.22.19",
   "repository": {
     "type": "git",
     "url": "https://github.com/Yoshiin/react-template.git"
